@@ -1,0 +1,151 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+#cursor-light {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 300px;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(165, 230, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  mix-blend-mode: screen;
+  transition: transform 0.05s ease-out;
+  filter: blur(20px); /* 增加模糊效果，使光斑更柔和明显 */
+}
+/* 导航容器样式 */
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 1; /* 确保导航内容在光斑之上 */
+}
+
+/* 导航分类样式 */
+.nav-category {
+  margin-bottom: 2rem;
+}
+
+/* 导航分类标题样式 */
+.nav-category h2 {
+  margin-bottom: 1rem;
+}
+
+/* 导航链接网格布局样式 */
+.nav-links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 默认四列 */
+  padding: 2rem;
+  gap: 1rem;
+  height: calc(3 * (100px + 2rem));
+  overflow-y: auto;
+}
+
+.nav-link-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 12px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)) saturate(1.1);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.nav-link:hover .nav-link-icon {
+  transform: scale(1.15) rotate(5deg);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) saturate(1.3)
+    brightness(1.05);
+}
+
+/* 中屏幕尺寸（例如平板） */
+@media (max-width: 992px) {
+  .nav-links {
+    grid-template-columns: repeat(3, 1fr); /* 三列 */
+  }
+}
+
+/* 小屏幕尺寸（例如手机） */
+@media (max-width: 768px) {
+  .nav-links {
+    grid-template-columns: repeat(2, 1fr); /* 两列 */
+  }
+}
+
+/* 超小屏幕尺寸 */
+@media (max-width: 480px) {
+  .nav-links {
+    grid-template-columns: 1fr; /* 一列 */
+  }
+}
+
+/* 单个导航链接样式 */
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease-in-out;
+}
+
+/* 导航链接悬停样式 */
+.nav-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 导航链接图标样式 */
+.nav-link img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 0.5rem;
+}
+
+
+/* 基础样式：设置 Tooltip 的容器为相对定位 */
+[data-tooltip] {
+  position: relative;
+  cursor: pointer;
+}
+
+/* 鼠标悬停时显示 Tooltip */
+[data-tooltip]:hover::after {
+  content: attr(data-tooltip); /* 关键：读取 data-tooltip 的值 */
+  position: absolute;
+  
+  /* 定位：默认显示在元素上方 */
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* 样式：背景、文字、边框等 */
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  
+  /* 动画（可选） */
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* 悬停时显示 Tooltip */
+[data-tooltip]:hover::after {
+  opacity: 1;
+}
